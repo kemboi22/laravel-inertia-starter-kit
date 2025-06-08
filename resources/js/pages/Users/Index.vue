@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { router, Link } from '@inertiajs/vue3';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import DataTable, { type Column, type PaginationData } from '@/components/data/DataTable.vue';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { MoreHorizontal, Plus, Eye, Edit, Trash } from 'lucide-vue-next';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import { router } from '@inertiajs/vue3';
+import { Edit, Eye, MoreHorizontal, Plus, Trash } from 'lucide-vue-next';
 
 interface User {
     id: number;
@@ -63,34 +59,30 @@ const columns: Column[] = [
 
 const handleSearch = (query: string) => {
     loading.value = true;
-    router.get(route('users.index'), 
+    router.get(
+        route('users.index'),
         { search: query, sort_column: props.filters.sort_column, sort_direction: props.filters.sort_direction },
-        { preserveState: true, onFinish: () => loading.value = false }
+        { preserveState: true, onFinish: () => (loading.value = false) },
     );
 };
 
 const handleSort = (column: string, direction: 'asc' | 'desc') => {
     loading.value = true;
-    router.get(route('users.index'),
+    router.get(
+        route('users.index'),
         { search: props.filters.search, sort_column: column, sort_direction: direction },
-        { preserveState: true, onFinish: () => loading.value = false }
+        { preserveState: true, onFinish: () => (loading.value = false) },
     );
 };
 
 const handlePaginate = (page: number) => {
     loading.value = true;
-    router.get(route('users.index'),
-        { ...props.filters, page },
-        { preserveState: true, onFinish: () => loading.value = false }
-    );
+    router.get(route('users.index'), { ...props.filters, page }, { preserveState: true, onFinish: () => (loading.value = false) });
 };
 
 const handlePerPageChange = (perPage: number) => {
     loading.value = true;
-    router.get(route('users.index'),
-        { ...props.filters, per_page: perPage },
-        { preserveState: true, onFinish: () => loading.value = false }
-    );
+    router.get(route('users.index'), { ...props.filters, per_page: perPage }, { preserveState: true, onFinish: () => (loading.value = false) });
 };
 
 const deleteUser = (user: User) => {
@@ -99,10 +91,7 @@ const deleteUser = (user: User) => {
     }
 };
 
-const breadcrumbs = [
-    { title: 'Dashboard', href: route('dashboard') },
-    { title: 'Users' },
-];
+const breadcrumbs = [{ title: 'Dashboard', href: route('dashboard') }, { title: 'Users' }];
 </script>
 
 <template>
@@ -115,7 +104,7 @@ const breadcrumbs = [
                     Add User
                 </Button>
             </div>
-            
+
             <DataTable
                 :data="users"
                 :columns="columns"
@@ -134,7 +123,7 @@ const breadcrumbs = [
                         </Badge>
                     </div>
                 </template>
-                
+
                 <template #cell.actions="{ row }">
                     <DropdownMenu>
                         <DropdownMenuTrigger as-child>
@@ -162,4 +151,3 @@ const breadcrumbs = [
         </div>
     </DefaultLayout>
 </template>
-
