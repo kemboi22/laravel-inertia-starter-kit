@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Traits\HasDataTable;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -11,8 +10,6 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    use HasDataTable;
-
     /**
      * Display a listing of the resource.
      */

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Traits;
+namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -83,17 +83,31 @@ trait HasDataTable
     /**
      * Scope to process full data table request
      */
-    public function scopeProcessDataTable(Builder $query, Request $request)
-    {
+    public function scopeProcessDataTable(
+        Builder $query,
+        Request $request,
+        ?string $resourceClass = null,
+        bool $associative = false
+    ): array {
         $paginator = $query
             ->applySearch($request)
             ->applySort($request)
             ->applyPagination($request);
 
-        return [
-            $paginator->items(),
-            $this->formatPaginationData($paginator),
-        ];
+        $items = $resourceClass
+            ? $resourceClass::collection($paginator->items())
+            : $paginator->items();
+
+        $meta = $this->formatPaginationData($paginator);
+
+        if ($resourceClass || $associative) {
+            return [
+                'data' => $items,
+                'meta' => $meta,
+            ];
+        }
+
+        return [$items, $meta];
     }
 
     /**

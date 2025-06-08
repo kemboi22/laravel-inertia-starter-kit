@@ -2,33 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Traits\HasDataTable;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
-    use HasDataTable;
-
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $this->authorize('view', Role::class);
-
-        $query = Role::with('permissions');
-
-        $searchableColumns = ['name'];
-        $sortableColumns = ['name', 'created_at'];
-
-        $roles = $this->processDataTableRequest($query, $request, $searchableColumns, $sortableColumns);
+        //$this->authorize('view', Role::class);
+        [$roles, $pagination] = Role::query()->processDataTable($request);
 
         return Inertia::render('Roles/Index', [
-            'roles' => $roles->items(),
-            'pagination' => $this->formatPaginationData($roles),
+            'roles' => $roles,
+            'pagination' => $pagination,
             'filters' => $request->only(['search', 'sort_column', 'sort_direction']),
         ]);
     }

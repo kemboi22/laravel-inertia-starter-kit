@@ -28,6 +28,7 @@
 ## 🏗️ Architecture
 
 ### Frontend Structure
+
 ```
 resources/js/
 ├── components/
@@ -45,6 +46,7 @@ resources/js/
 ```
 
 ### Backend Structure
+
 ```
 app/
 ├── Http/
@@ -60,6 +62,7 @@ app/
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - PHP 8.2+
 - Node.js 18+
 - Composer
@@ -68,64 +71,73 @@ app/
 ### Installation
 
 1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd laravel-starter-kit
-   ```
+
+    ```bash
+    git clone <repository-url>
+    cd laravel-starter-kit
+    ```
 
 2. **Install PHP dependencies**
-   ```bash
-   composer install
-   ```
+
+    ```bash
+    composer install
+    ```
 
 3. **Install Node.js dependencies**
-   ```bash
-   npm install
-   ```
+
+    ```bash
+    npm install
+    ```
 
 4. **Environment setup**
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
+
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
 5. **Configure database**
-   ```bash
-   # Edit .env file with your database credentials
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=your_database
-   DB_USERNAME=your_username
-   DB_PASSWORD=your_password
-   ```
+
+    ```bash
+    # Edit .env file with your database credentials
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=your_database
+    DB_USERNAME=your_username
+    DB_PASSWORD=your_password
+    ```
 
 6. **Run migrations and seeders**
-   ```bash
-   php artisan migrate
-   php artisan db:seed --class=RolePermissionSeeder
-   ```
+
+    ```bash
+    php artisan migrate
+    php artisan db:seed --class=RolePermissionSeeder
+    ```
 
 7. **Build assets**
-   ```bash
-   npm run build
-   # or for development
-   npm run dev
-   ```
+
+    ```bash
+    npm run build
+    # or for development
+    npm run dev
+    ```
 
 8. **Start the application**
-   ```bash
-   php artisan serve
-   ```
+    ```bash
+    php artisan serve
+    ```
 
 ## 🔐 Role-Based Access Control
 
 ### Default Roles
+
 - **Admin**: Full system access
 - **Moderator**: Limited user and content management
 - **User**: Basic access
 
 ### Permissions
+
 - `view users`, `create users`, `edit users`, `delete users`
 - `view roles`, `create roles`, `edit roles`, `delete roles`
 - `view permissions`, `create permissions`, `edit permissions`, `delete permissions`
@@ -133,11 +145,13 @@ app/
 ### Usage Examples
 
 **In Controllers:**
+
 ```php
 $this->authorize('view', User::class);
 ```
 
 **In Vue Components:**
+
 ```typescript
 const canManageUsers = computed(() => {
     return user.value?.permissions?.includes('view users');
@@ -147,6 +161,7 @@ const canManageUsers = computed(() => {
 ## 📊 DataTable Component
 
 ### Features
+
 - 🔍 Real-time search with debouncing
 - 📈 Column sorting (ascending/descending)
 - 📄 Pagination with customizable page sizes
@@ -158,35 +173,35 @@ const canManageUsers = computed(() => {
 
 ```vue
 <template>
-  <DataTable
-    :data="users"
-    :columns="columns"
-    :pagination="pagination"
-    :loading="loading"
-    @search="handleSearch"
-    @sort="handleSort"
-    @paginate="handlePaginate"
-  >
-    <template #cell.actions="{ row }">
-      <!-- Custom action buttons -->
-    </template>
-  </DataTable>
+    <DataTable
+        :data="users"
+        :columns="columns"
+        :pagination="pagination"
+        :loading="loading"
+        @search="handleSearch"
+        @sort="handleSort"
+        @paginate="handlePaginate"
+    >
+        <template #cell.actions="{ row }">
+            <!-- Custom action buttons -->
+        </template>
+    </DataTable>
 </template>
 
 <script setup lang="ts">
 const columns: Column[] = [
-  {
-    key: 'name',
-    label: 'Name',
-    sortable: true,
-    searchable: true,
-  },
-  {
-    key: 'email',
-    label: 'Email',
-    sortable: true,
-    render: (value) => value.toLowerCase(),
-  },
+    {
+        key: 'name',
+        label: 'Name',
+        sortable: true,
+        searchable: true,
+    },
+    {
+        key: 'email',
+        label: 'Email',
+        sortable: true,
+        render: (value) => value.toLowerCase(),
+    },
 ];
 </script>
 ```
@@ -199,18 +214,18 @@ use App\Http\Traits\HasDataTable;
 class UserController extends Controller
 {
     use HasDataTable;
-    
+
     public function index(Request $request)
     {
         $query = User::with('roles');
-        
+
         $users = $this->processDataTableRequest(
             $query,
             $request,
             ['name', 'email'], // searchable columns
             ['name', 'email', 'created_at'] // sortable columns
         );
-        
+
         return Inertia::render('Users/Index', [
             'users' => $users->items(),
             'pagination' => $this->formatPaginationData($users),
@@ -262,27 +277,30 @@ php artisan test
 ### Adding New Features
 
 1. **Create a new page**
-   ```bash
-   # Create controller
-   php artisan make:controller FeatureController --resource
-   
-   # Create Vue page
-   touch resources/js/pages/Feature/Index.vue
-   ```
+
+    ```bash
+    # Create controller
+    php artisan make:controller FeatureController --resource
+
+    # Create Vue page
+    touch resources/js/pages/Feature/Index.vue
+    ```
 
 2. **Add routes**
-   ```php
-   Route::resource('features', FeatureController::class);
-   ```
+
+    ```php
+    Route::resource('features', FeatureController::class);
+    ```
 
 3. **Add permissions**
-   ```php
-   Permission::create(['name' => 'view features']);
-   ```
+    ```php
+    Permission::create(['name' => 'view features']);
+    ```
 
 ## 📁 Project Structure
 
 ### Key Files
+
 - `app/Http/Traits/HasDataTable.php` - Reusable DataTable backend logic
 - `resources/js/components/data/DataTable.vue` - Frontend DataTable component
 - `resources/js/layouts/DefaultLayout.vue` - Main application layout
@@ -292,6 +310,7 @@ php artisan test
 ## 🔧 Configuration
 
 ### Environment Variables
+
 ```env
 # App
 APP_NAME="Laravel Starter Kit"
@@ -320,21 +339,23 @@ PERMISSION_CACHE_EXPIRATION_TIME=3600
 ### Common Issues
 
 1. **Ziggy route errors**
-   ```bash
-   php artisan route:cache
-   npm run build
-   ```
+
+    ```bash
+    php artisan route:cache
+    npm run build
+    ```
 
 2. **Permission issues**
-   ```bash
-   php artisan permission:cache-reset
-   ```
+
+    ```bash
+    php artisan permission:cache-reset
+    ```
 
 3. **Asset compilation**
-   ```bash
-   npm run build
-   php artisan view:cache
-   ```
+    ```bash
+    npm run build
+    php artisan view:cache
+    ```
 
 ## 📚 Resources
 
@@ -370,4 +391,3 @@ This project is open-sourced software licensed under the [MIT license](https://o
 <p align="center">
   Built with ❤️ using Laravel, Vue.js, and TypeScript
 </p>
-

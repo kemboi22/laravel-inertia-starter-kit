@@ -6,6 +6,21 @@
 // biome-ignore lint: disable
 export {}
 declare global {
+  const Accordion: typeof import('./resources/js/components/ui/accordion/index')['Accordion']
+  const AccordionContent: typeof import('./resources/js/components/ui/accordion/index')['AccordionContent']
+  const AccordionItem: typeof import('./resources/js/components/ui/accordion/index')['AccordionItem']
+  const AccordionTrigger: typeof import('./resources/js/components/ui/accordion/index')['AccordionTrigger']
+  const AutoForm: typeof import('./resources/js/components/ui/auto-form/index')['AutoForm']
+  const AutoFormField: typeof import('./resources/js/components/ui/auto-form/index')['AutoFormField']
+  const AutoFormFieldArray: typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldArray']
+  const AutoFormFieldBoolean: typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldBoolean']
+  const AutoFormFieldDate: typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldDate']
+  const AutoFormFieldEnum: typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldEnum']
+  const AutoFormFieldFile: typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldFile']
+  const AutoFormFieldInput: typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldInput']
+  const AutoFormFieldNumber: typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldNumber']
+  const AutoFormFieldObject: typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldObject']
+  const AutoFormLabel: typeof import('./resources/js/components/ui/auto-form/index')['AutoFormLabel']
   const Avatar: typeof import('./resources/js/components/ui/avatar/index')['Avatar']
   const AvatarFallback: typeof import('./resources/js/components/ui/avatar/index')['AvatarFallback']
   const AvatarImage: typeof import('./resources/js/components/ui/avatar/index')['AvatarImage']
@@ -18,6 +33,18 @@ declare global {
   const BreadcrumbPage: typeof import('./resources/js/components/ui/breadcrumb/index')['BreadcrumbPage']
   const BreadcrumbSeparator: typeof import('./resources/js/components/ui/breadcrumb/index')['BreadcrumbSeparator']
   const Button: typeof import('./resources/js/components/ui/button/index')['Button']
+  const Calendar: typeof import('./resources/js/components/ui/calendar/index')['Calendar']
+  const CalendarCell: typeof import('./resources/js/components/ui/calendar/index')['CalendarCell']
+  const CalendarCellTrigger: typeof import('./resources/js/components/ui/calendar/index')['CalendarCellTrigger']
+  const CalendarGrid: typeof import('./resources/js/components/ui/calendar/index')['CalendarGrid']
+  const CalendarGridBody: typeof import('./resources/js/components/ui/calendar/index')['CalendarGridBody']
+  const CalendarGridHead: typeof import('./resources/js/components/ui/calendar/index')['CalendarGridHead']
+  const CalendarGridRow: typeof import('./resources/js/components/ui/calendar/index')['CalendarGridRow']
+  const CalendarHeadCell: typeof import('./resources/js/components/ui/calendar/index')['CalendarHeadCell']
+  const CalendarHeader: typeof import('./resources/js/components/ui/calendar/index')['CalendarHeader']
+  const CalendarHeading: typeof import('./resources/js/components/ui/calendar/index')['CalendarHeading']
+  const CalendarNextButton: typeof import('./resources/js/components/ui/calendar/index')['CalendarNextButton']
+  const CalendarPrevButton: typeof import('./resources/js/components/ui/calendar/index')['CalendarPrevButton']
   const Card: typeof import('./resources/js/components/ui/card/index')['Card']
   const CardAction: typeof import('./resources/js/components/ui/card/index')['CardAction']
   const CardContent: typeof import('./resources/js/components/ui/card/index')['CardContent']
@@ -29,6 +56,8 @@ declare global {
   const Collapsible: typeof import('./resources/js/components/ui/collapsible/index')['Collapsible']
   const CollapsibleContent: typeof import('./resources/js/components/ui/collapsible/index')['CollapsibleContent']
   const CollapsibleTrigger: typeof import('./resources/js/components/ui/collapsible/index')['CollapsibleTrigger']
+  const DEFAULT_ZOD_HANDLERS: typeof import('./resources/js/components/ui/auto-form/constant')['DEFAULT_ZOD_HANDLERS']
+  const DependencyType: typeof import('./resources/js/components/ui/auto-form/interface')['DependencyType']
   const Dialog: typeof import('./resources/js/components/ui/dialog/index')['Dialog']
   const DialogClose: typeof import('./resources/js/components/ui/dialog/index')['DialogClose']
   const DialogContent: typeof import('./resources/js/components/ui/dialog/index')['DialogContent']
@@ -55,6 +84,16 @@ declare global {
   const DropdownMenuSubTrigger: typeof import('./resources/js/components/ui/dropdown-menu/index')['DropdownMenuSubTrigger']
   const DropdownMenuTrigger: typeof import('./resources/js/components/ui/dropdown-menu/index')['DropdownMenuTrigger']
   const EffectScope: typeof import('vue')['EffectScope']
+  const FORM_ITEM_INJECTION_KEY: typeof import('./resources/js/components/ui/form/injectionKeys')['FORM_ITEM_INJECTION_KEY']
+  const Form: typeof import('./resources/js/components/ui/form/index')['Form']
+  const FormControl: typeof import('./resources/js/components/ui/form/index')['FormControl']
+  const FormDescription: typeof import('./resources/js/components/ui/form/index')['FormDescription']
+  const FormField: typeof import('./resources/js/components/ui/form/index')['FormField']
+  const FormFieldArray: typeof import('./resources/js/components/ui/form/index')['FormFieldArray']
+  const FormItem: typeof import('./resources/js/components/ui/form/index')['FormItem']
+  const FormLabel: typeof import('./resources/js/components/ui/form/index')['FormLabel']
+  const FormMessage: typeof import('./resources/js/components/ui/form/index')['FormMessage']
+  const INPUT_COMPONENTS: typeof import('./resources/js/components/ui/auto-form/constant')['INPUT_COMPONENTS']
   const Input: typeof import('./resources/js/components/ui/input/index')['Input']
   const Label: typeof import('./resources/js/components/ui/label/index')['Label']
   const NavigationMenu: typeof import('./resources/js/components/ui/navigation-menu/index')['NavigationMenu']
@@ -65,6 +104,12 @@ declare global {
   const NavigationMenuList: typeof import('./resources/js/components/ui/navigation-menu/index')['NavigationMenuList']
   const NavigationMenuTrigger: typeof import('./resources/js/components/ui/navigation-menu/index')['NavigationMenuTrigger']
   const NavigationMenuViewport: typeof import('./resources/js/components/ui/navigation-menu/index')['NavigationMenuViewport']
+  const Popover: typeof import('./resources/js/components/ui/popover/index')['Popover']
+  const PopoverAnchor: typeof import('./resources/js/components/ui/popover/index')['PopoverAnchor']
+  const PopoverContent: typeof import('./resources/js/components/ui/popover/index')['PopoverContent']
+  const PopoverTrigger: typeof import('./resources/js/components/ui/popover/index')['PopoverTrigger']
+  const RadioGroup: typeof import('./resources/js/components/ui/radio-group/index')['RadioGroup']
+  const RadioGroupItem: typeof import('./resources/js/components/ui/radio-group/index')['RadioGroupItem']
   const SIDEBAR_COOKIE_MAX_AGE: typeof import('./resources/js/components/ui/sidebar/utils')['SIDEBAR_COOKIE_MAX_AGE']
   const SIDEBAR_COOKIE_NAME: typeof import('./resources/js/components/ui/sidebar/utils')['SIDEBAR_COOKIE_NAME']
   const SIDEBAR_KEYBOARD_SHORTCUT: typeof import('./resources/js/components/ui/sidebar/utils')['SIDEBAR_KEYBOARD_SHORTCUT']
@@ -122,6 +167,7 @@ declare global {
   const StepperSeparator: typeof import('./resources/js/components/ui/stepper/index')['StepperSeparator']
   const StepperTitle: typeof import('./resources/js/components/ui/stepper/index')['StepperTitle']
   const StepperTrigger: typeof import('./resources/js/components/ui/stepper/index')['StepperTrigger']
+  const Switch: typeof import('./resources/js/components/ui/switch/index')['Switch']
   const Table: typeof import('./resources/js/components/ui/table/index')['Table']
   const TableBody: typeof import('./resources/js/components/ui/table/index')['TableBody']
   const TableCaption: typeof import('./resources/js/components/ui/table/index')['TableCaption']
@@ -131,6 +177,7 @@ declare global {
   const TableHead: typeof import('./resources/js/components/ui/table/index')['TableHead']
   const TableHeader: typeof import('./resources/js/components/ui/table/index')['TableHeader']
   const TableRow: typeof import('./resources/js/components/ui/table/index')['TableRow']
+  const Textarea: typeof import('./resources/js/components/ui/textarea/index')['Textarea']
   const Toaster: typeof import('./resources/js/components/ui/sonner/index')['Toaster']
   const Tooltip: typeof import('./resources/js/components/ui/tooltip/index')['Tooltip']
   const TooltipContent: typeof import('./resources/js/components/ui/tooltip/index')['TooltipContent']
@@ -138,6 +185,8 @@ declare global {
   const TooltipTrigger: typeof import('./resources/js/components/ui/tooltip/index')['TooltipTrigger']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const beautifyObjectName: typeof import('./resources/js/components/ui/auto-form/utils')['beautifyObjectName']
+  const booleanishToBoolean: typeof import('./resources/js/components/ui/auto-form/utils')['booleanishToBoolean']
   const buttonVariants: typeof import('./resources/js/components/ui/button/index')['buttonVariants']
   const cn: typeof import('./resources/js/lib/utils')['cn']
   const computed: typeof import('vue')['computed']
@@ -162,26 +211,37 @@ declare global {
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
+  const dependencies: typeof import('./resources/js/components/ui/auto-form/dependencies')['default']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
+  const getBaseSchema: typeof import('./resources/js/components/ui/auto-form/utils')['getBaseSchema']
+  const getBaseType: typeof import('./resources/js/components/ui/auto-form/utils')['getBaseType']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
+  const getDefaultValueInZodStack: typeof import('./resources/js/components/ui/auto-form/utils')['getDefaultValueInZodStack']
+  const getFromPath: typeof import('./resources/js/components/ui/auto-form/utils')['getFromPath']
+  const getIndexIfArray: typeof import('./resources/js/components/ui/auto-form/utils')['getIndexIfArray']
   const getInitials: typeof import('./resources/js/composables/useInitials')['getInitials']
+  const getObjectFormSchema: typeof import('./resources/js/components/ui/auto-form/utils')['getObjectFormSchema']
   const h: typeof import('vue')['h']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const initializeTheme: typeof import('./resources/js/composables/useAppearance')['initializeTheme']
   const inject: typeof import('vue')['inject']
+  const injectDependencies: typeof import('./resources/js/components/ui/auto-form/dependencies')['injectDependencies']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
   const isDefined: typeof import('@vueuse/core')['isDefined']
+  const isNotNestedPath: typeof import('./resources/js/components/ui/auto-form/utils')['isNotNestedPath']
   const isProxy: typeof import('vue')['isProxy']
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']
   const isRef: typeof import('vue')['isRef']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
+  const maybeBooleanishToBoolean: typeof import('./resources/js/components/ui/auto-form/utils')['maybeBooleanishToBoolean']
   const navigationMenuTriggerStyle: typeof import('./resources/js/components/ui/navigation-menu/index')['navigationMenuTriggerStyle']
   const nextTick: typeof import('vue')['nextTick']
+  const normalizeFormPath: typeof import('./resources/js/components/ui/auto-form/utils')['normalizeFormPath']
   const onActivated: typeof import('vue')['onActivated']
   const onBeforeMount: typeof import('vue')['onBeforeMount']
   const onBeforeUnmount: typeof import('vue')['onBeforeUnmount']
@@ -203,6 +263,7 @@ declare global {
   const onWatcherCleanup: typeof import('vue')['onWatcherCleanup']
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
   const provide: typeof import('vue')['provide']
+  const provideDependencies: typeof import('./resources/js/components/ui/auto-form/dependencies')['provideDependencies']
   const provideLocal: typeof import('@vueuse/core')['provideLocal']
   const provideSidebarContext: typeof import('./resources/js/components/ui/sidebar/utils')['provideSidebarContext']
   const reactify: typeof import('@vueuse/core')['reactify']
@@ -283,6 +344,7 @@ declare global {
   const useCurrentElement: typeof import('@vueuse/core')['useCurrentElement']
   const useCycleList: typeof import('@vueuse/core')['useCycleList']
   const useDark: typeof import('@vueuse/core')['useDark']
+  const useDataTable: typeof import('./resources/js/composables/useDataTable')['useDataTable']
   const useDateFormat: typeof import('@vueuse/core')['useDateFormat']
   const useDebounce: typeof import('@vueuse/core')['useDebounce']
   const useDebounceFn: typeof import('@vueuse/core')['useDebounceFn']
@@ -310,6 +372,7 @@ declare global {
   const useFileSystemAccess: typeof import('@vueuse/core')['useFileSystemAccess']
   const useFocus: typeof import('@vueuse/core')['useFocus']
   const useFocusWithin: typeof import('@vueuse/core')['useFocusWithin']
+  const useFormField: typeof import('./resources/js/components/ui/form/useFormField')['useFormField']
   const useFps: typeof import('@vueuse/core')['useFps']
   const useFullscreen: typeof import('@vueuse/core')['useFullscreen']
   const useGamepad: typeof import('@vueuse/core')['useGamepad']
@@ -439,6 +502,12 @@ declare global {
   export type { Column, PaginationData, DataTableProps } from './resources/js/components/data/DataTable.vue'
   import('./resources/js/components/data/DataTable.vue')
   // @ts-ignore
+  export type { DependencyType, FieldProps, Shape, InputComponents, ConfigItem, Config, ValueDependency, EnumValues, OptionsDependency, Dependency } from './resources/js/components/ui/auto-form/interface'
+  import('./resources/js/components/ui/auto-form/interface')
+  // @ts-ignore
+  export type { ZodObjectOrWrapped } from './resources/js/components/ui/auto-form/utils'
+  import('./resources/js/components/ui/auto-form/utils')
+  // @ts-ignore
   export type { BadgeProps } from './resources/js/components/ui/badge/Badge.vue'
   import('./resources/js/components/ui/badge/Badge.vue')
   // @ts-ignore
@@ -463,6 +532,21 @@ import { UnwrapRef } from 'vue'
 declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
+    readonly Accordion: UnwrapRef<typeof import('./resources/js/components/ui/accordion/index')['Accordion']>
+    readonly AccordionContent: UnwrapRef<typeof import('./resources/js/components/ui/accordion/index')['AccordionContent']>
+    readonly AccordionItem: UnwrapRef<typeof import('./resources/js/components/ui/accordion/index')['AccordionItem']>
+    readonly AccordionTrigger: UnwrapRef<typeof import('./resources/js/components/ui/accordion/index')['AccordionTrigger']>
+    readonly AutoForm: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/index')['AutoForm']>
+    readonly AutoFormField: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/index')['AutoFormField']>
+    readonly AutoFormFieldArray: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldArray']>
+    readonly AutoFormFieldBoolean: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldBoolean']>
+    readonly AutoFormFieldDate: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldDate']>
+    readonly AutoFormFieldEnum: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldEnum']>
+    readonly AutoFormFieldFile: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldFile']>
+    readonly AutoFormFieldInput: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldInput']>
+    readonly AutoFormFieldNumber: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldNumber']>
+    readonly AutoFormFieldObject: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/index')['AutoFormFieldObject']>
+    readonly AutoFormLabel: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/index')['AutoFormLabel']>
     readonly Avatar: UnwrapRef<typeof import('./resources/js/components/ui/avatar/index')['Avatar']>
     readonly AvatarFallback: UnwrapRef<typeof import('./resources/js/components/ui/avatar/index')['AvatarFallback']>
     readonly AvatarImage: UnwrapRef<typeof import('./resources/js/components/ui/avatar/index')['AvatarImage']>
@@ -475,6 +559,18 @@ declare module 'vue' {
     readonly BreadcrumbPage: UnwrapRef<typeof import('./resources/js/components/ui/breadcrumb/index')['BreadcrumbPage']>
     readonly BreadcrumbSeparator: UnwrapRef<typeof import('./resources/js/components/ui/breadcrumb/index')['BreadcrumbSeparator']>
     readonly Button: UnwrapRef<typeof import('./resources/js/components/ui/button/index')['Button']>
+    readonly Calendar: UnwrapRef<typeof import('./resources/js/components/ui/calendar/index')['Calendar']>
+    readonly CalendarCell: UnwrapRef<typeof import('./resources/js/components/ui/calendar/index')['CalendarCell']>
+    readonly CalendarCellTrigger: UnwrapRef<typeof import('./resources/js/components/ui/calendar/index')['CalendarCellTrigger']>
+    readonly CalendarGrid: UnwrapRef<typeof import('./resources/js/components/ui/calendar/index')['CalendarGrid']>
+    readonly CalendarGridBody: UnwrapRef<typeof import('./resources/js/components/ui/calendar/index')['CalendarGridBody']>
+    readonly CalendarGridHead: UnwrapRef<typeof import('./resources/js/components/ui/calendar/index')['CalendarGridHead']>
+    readonly CalendarGridRow: UnwrapRef<typeof import('./resources/js/components/ui/calendar/index')['CalendarGridRow']>
+    readonly CalendarHeadCell: UnwrapRef<typeof import('./resources/js/components/ui/calendar/index')['CalendarHeadCell']>
+    readonly CalendarHeader: UnwrapRef<typeof import('./resources/js/components/ui/calendar/index')['CalendarHeader']>
+    readonly CalendarHeading: UnwrapRef<typeof import('./resources/js/components/ui/calendar/index')['CalendarHeading']>
+    readonly CalendarNextButton: UnwrapRef<typeof import('./resources/js/components/ui/calendar/index')['CalendarNextButton']>
+    readonly CalendarPrevButton: UnwrapRef<typeof import('./resources/js/components/ui/calendar/index')['CalendarPrevButton']>
     readonly Card: UnwrapRef<typeof import('./resources/js/components/ui/card/index')['Card']>
     readonly CardAction: UnwrapRef<typeof import('./resources/js/components/ui/card/index')['CardAction']>
     readonly CardContent: UnwrapRef<typeof import('./resources/js/components/ui/card/index')['CardContent']>
@@ -486,6 +582,8 @@ declare module 'vue' {
     readonly Collapsible: UnwrapRef<typeof import('./resources/js/components/ui/collapsible/index')['Collapsible']>
     readonly CollapsibleContent: UnwrapRef<typeof import('./resources/js/components/ui/collapsible/index')['CollapsibleContent']>
     readonly CollapsibleTrigger: UnwrapRef<typeof import('./resources/js/components/ui/collapsible/index')['CollapsibleTrigger']>
+    readonly DEFAULT_ZOD_HANDLERS: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/constant')['DEFAULT_ZOD_HANDLERS']>
+    readonly DependencyType: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/interface')['DependencyType']>
     readonly Dialog: UnwrapRef<typeof import('./resources/js/components/ui/dialog/index')['Dialog']>
     readonly DialogClose: UnwrapRef<typeof import('./resources/js/components/ui/dialog/index')['DialogClose']>
     readonly DialogContent: UnwrapRef<typeof import('./resources/js/components/ui/dialog/index')['DialogContent']>
@@ -512,6 +610,16 @@ declare module 'vue' {
     readonly DropdownMenuSubTrigger: UnwrapRef<typeof import('./resources/js/components/ui/dropdown-menu/index')['DropdownMenuSubTrigger']>
     readonly DropdownMenuTrigger: UnwrapRef<typeof import('./resources/js/components/ui/dropdown-menu/index')['DropdownMenuTrigger']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly FORM_ITEM_INJECTION_KEY: UnwrapRef<typeof import('./resources/js/components/ui/form/injectionKeys')['FORM_ITEM_INJECTION_KEY']>
+    readonly Form: UnwrapRef<typeof import('./resources/js/components/ui/form/index')['Form']>
+    readonly FormControl: UnwrapRef<typeof import('./resources/js/components/ui/form/index')['FormControl']>
+    readonly FormDescription: UnwrapRef<typeof import('./resources/js/components/ui/form/index')['FormDescription']>
+    readonly FormField: UnwrapRef<typeof import('./resources/js/components/ui/form/index')['FormField']>
+    readonly FormFieldArray: UnwrapRef<typeof import('./resources/js/components/ui/form/index')['FormFieldArray']>
+    readonly FormItem: UnwrapRef<typeof import('./resources/js/components/ui/form/index')['FormItem']>
+    readonly FormLabel: UnwrapRef<typeof import('./resources/js/components/ui/form/index')['FormLabel']>
+    readonly FormMessage: UnwrapRef<typeof import('./resources/js/components/ui/form/index')['FormMessage']>
+    readonly INPUT_COMPONENTS: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/constant')['INPUT_COMPONENTS']>
     readonly Input: UnwrapRef<typeof import('./resources/js/components/ui/input/index')['Input']>
     readonly Label: UnwrapRef<typeof import('./resources/js/components/ui/label/index')['Label']>
     readonly NavigationMenu: UnwrapRef<typeof import('./resources/js/components/ui/navigation-menu/index')['NavigationMenu']>
@@ -522,6 +630,12 @@ declare module 'vue' {
     readonly NavigationMenuList: UnwrapRef<typeof import('./resources/js/components/ui/navigation-menu/index')['NavigationMenuList']>
     readonly NavigationMenuTrigger: UnwrapRef<typeof import('./resources/js/components/ui/navigation-menu/index')['NavigationMenuTrigger']>
     readonly NavigationMenuViewport: UnwrapRef<typeof import('./resources/js/components/ui/navigation-menu/index')['NavigationMenuViewport']>
+    readonly Popover: UnwrapRef<typeof import('./resources/js/components/ui/popover/index')['Popover']>
+    readonly PopoverAnchor: UnwrapRef<typeof import('./resources/js/components/ui/popover/index')['PopoverAnchor']>
+    readonly PopoverContent: UnwrapRef<typeof import('./resources/js/components/ui/popover/index')['PopoverContent']>
+    readonly PopoverTrigger: UnwrapRef<typeof import('./resources/js/components/ui/popover/index')['PopoverTrigger']>
+    readonly RadioGroup: UnwrapRef<typeof import('./resources/js/components/ui/radio-group/index')['RadioGroup']>
+    readonly RadioGroupItem: UnwrapRef<typeof import('./resources/js/components/ui/radio-group/index')['RadioGroupItem']>
     readonly SIDEBAR_COOKIE_MAX_AGE: UnwrapRef<typeof import('./resources/js/components/ui/sidebar/utils')['SIDEBAR_COOKIE_MAX_AGE']>
     readonly SIDEBAR_COOKIE_NAME: UnwrapRef<typeof import('./resources/js/components/ui/sidebar/utils')['SIDEBAR_COOKIE_NAME']>
     readonly SIDEBAR_KEYBOARD_SHORTCUT: UnwrapRef<typeof import('./resources/js/components/ui/sidebar/utils')['SIDEBAR_KEYBOARD_SHORTCUT']>
@@ -579,6 +693,7 @@ declare module 'vue' {
     readonly StepperSeparator: UnwrapRef<typeof import('./resources/js/components/ui/stepper/index')['StepperSeparator']>
     readonly StepperTitle: UnwrapRef<typeof import('./resources/js/components/ui/stepper/index')['StepperTitle']>
     readonly StepperTrigger: UnwrapRef<typeof import('./resources/js/components/ui/stepper/index')['StepperTrigger']>
+    readonly Switch: UnwrapRef<typeof import('./resources/js/components/ui/switch/index')['Switch']>
     readonly Table: UnwrapRef<typeof import('./resources/js/components/ui/table/index')['Table']>
     readonly TableBody: UnwrapRef<typeof import('./resources/js/components/ui/table/index')['TableBody']>
     readonly TableCaption: UnwrapRef<typeof import('./resources/js/components/ui/table/index')['TableCaption']>
@@ -588,6 +703,7 @@ declare module 'vue' {
     readonly TableHead: UnwrapRef<typeof import('./resources/js/components/ui/table/index')['TableHead']>
     readonly TableHeader: UnwrapRef<typeof import('./resources/js/components/ui/table/index')['TableHeader']>
     readonly TableRow: UnwrapRef<typeof import('./resources/js/components/ui/table/index')['TableRow']>
+    readonly Textarea: UnwrapRef<typeof import('./resources/js/components/ui/textarea/index')['Textarea']>
     readonly Toaster: UnwrapRef<typeof import('./resources/js/components/ui/sonner/index')['Toaster']>
     readonly Tooltip: UnwrapRef<typeof import('./resources/js/components/ui/tooltip/index')['Tooltip']>
     readonly TooltipContent: UnwrapRef<typeof import('./resources/js/components/ui/tooltip/index')['TooltipContent']>
@@ -595,6 +711,8 @@ declare module 'vue' {
     readonly TooltipTrigger: UnwrapRef<typeof import('./resources/js/components/ui/tooltip/index')['TooltipTrigger']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly beautifyObjectName: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['beautifyObjectName']>
+    readonly booleanishToBoolean: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['booleanishToBoolean']>
     readonly buttonVariants: UnwrapRef<typeof import('./resources/js/components/ui/button/index')['buttonVariants']>
     readonly cn: UnwrapRef<typeof import('./resources/js/lib/utils')['cn']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
@@ -619,26 +737,37 @@ declare module 'vue' {
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
+    readonly dependencies: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/dependencies')['default']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly getBaseSchema: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['getBaseSchema']>
+    readonly getBaseType: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['getBaseType']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
+    readonly getDefaultValueInZodStack: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['getDefaultValueInZodStack']>
+    readonly getFromPath: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['getFromPath']>
+    readonly getIndexIfArray: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['getIndexIfArray']>
     readonly getInitials: UnwrapRef<typeof import('./resources/js/composables/useInitials')['getInitials']>
+    readonly getObjectFormSchema: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['getObjectFormSchema']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly initializeTheme: UnwrapRef<typeof import('./resources/js/composables/useAppearance')['initializeTheme']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
+    readonly injectDependencies: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/dependencies')['injectDependencies']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
+    readonly isNotNestedPath: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['isNotNestedPath']>
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
+    readonly maybeBooleanishToBoolean: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['maybeBooleanishToBoolean']>
     readonly navigationMenuTriggerStyle: UnwrapRef<typeof import('./resources/js/components/ui/navigation-menu/index')['navigationMenuTriggerStyle']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
+    readonly normalizeFormPath: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['normalizeFormPath']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
     readonly onBeforeMount: UnwrapRef<typeof import('vue')['onBeforeMount']>
     readonly onBeforeUnmount: UnwrapRef<typeof import('vue')['onBeforeUnmount']>
@@ -660,6 +789,7 @@ declare module 'vue' {
     readonly onWatcherCleanup: UnwrapRef<typeof import('vue')['onWatcherCleanup']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
+    readonly provideDependencies: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/dependencies')['provideDependencies']>
     readonly provideLocal: UnwrapRef<typeof import('@vueuse/core')['provideLocal']>
     readonly provideSidebarContext: UnwrapRef<typeof import('./resources/js/components/ui/sidebar/utils')['provideSidebarContext']>
     readonly reactify: UnwrapRef<typeof import('@vueuse/core')['reactify']>
@@ -740,6 +870,7 @@ declare module 'vue' {
     readonly useCurrentElement: UnwrapRef<typeof import('@vueuse/core')['useCurrentElement']>
     readonly useCycleList: UnwrapRef<typeof import('@vueuse/core')['useCycleList']>
     readonly useDark: UnwrapRef<typeof import('@vueuse/core')['useDark']>
+    readonly useDataTable: UnwrapRef<typeof import('./resources/js/composables/useDataTable')['useDataTable']>
     readonly useDateFormat: UnwrapRef<typeof import('@vueuse/core')['useDateFormat']>
     readonly useDebounce: UnwrapRef<typeof import('@vueuse/core')['useDebounce']>
     readonly useDebounceFn: UnwrapRef<typeof import('@vueuse/core')['useDebounceFn']>
@@ -767,6 +898,7 @@ declare module 'vue' {
     readonly useFileSystemAccess: UnwrapRef<typeof import('@vueuse/core')['useFileSystemAccess']>
     readonly useFocus: UnwrapRef<typeof import('@vueuse/core')['useFocus']>
     readonly useFocusWithin: UnwrapRef<typeof import('@vueuse/core')['useFocusWithin']>
+    readonly useFormField: UnwrapRef<typeof import('./resources/js/components/ui/form/useFormField')['useFormField']>
     readonly useFps: UnwrapRef<typeof import('@vueuse/core')['useFps']>
     readonly useFullscreen: UnwrapRef<typeof import('@vueuse/core')['useFullscreen']>
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
