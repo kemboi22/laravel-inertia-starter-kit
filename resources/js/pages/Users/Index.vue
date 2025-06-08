@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { router, Link } from '@inertiajs/vue3';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import DataTable, { type Column, type PaginationData } from '@/components/data/DataTable.vue';
 import { Button } from '@/components/ui/button';
@@ -110,7 +110,7 @@ const breadcrumbs = [
         <div class="space-y-4">
             <div class="flex items-center justify-between">
                 <h1 class="text-2xl font-bold">Users</h1>
-                <Button :as="Link" :href="route('users.create')">
+                <Button as="a" :href="route('users.create')">
                     <Plus class="mr-2 h-4 w-4" />
                     Add User
                 </Button>
@@ -143,11 +143,11 @@ const breadcrumbs = [
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem :as="Link" :href="route('users.show', row.id)">
+                            <DropdownMenuItem as="a" :href="route('users.show', row.id)">
                                 <Eye class="mr-2 h-4 w-4" />
                                 View
                             </DropdownMenuItem>
-                            <DropdownMenuItem :as="Link" :href="route('users.edit', row.id)">
+                            <DropdownMenuItem as="a" :href="route('users.edit', row.id)">
                                 <Edit class="mr-2 h-4 w-4" />
                                 Edit
                             </DropdownMenuItem>
