@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,10 +16,10 @@ Route::get('dashboard', function () {
 Route::middleware('auth')->group(function () {
     // User Management
     Route::resource('users', UserController::class);
-    
+
     // Role Management
     Route::resource('roles', RoleController::class);
 });
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';
