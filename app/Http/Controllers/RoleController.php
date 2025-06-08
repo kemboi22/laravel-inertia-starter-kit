@@ -1,0 +1,131 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Traits\HasDataTable;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+
+class RoleController extends Controller
+{
+    use HasDataTable;
+    
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(Request $request)
+    {
+        $this->authorize('view', Role::class);
+        
+        $query = Role::with('permissions');
+        
+        $searchableColumns = ['name'];
+        $sortableColumns = ['name', 'created_at'];
+        
+        $roles = $this->processDataTableRequest($query, $request, $searchableColumns, $sortableColumns);
+        
+        return Inertia::render('Roles/Index', [
+            'roles' => $roles->items(),
+            'pagination' => $this->formatPaginationData($roles),
+            'filters' => $request->only(['search', 'sort_column', 'sort_direction'])
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        $this->authorize('create', Role::class);
+        
+        return Inertia::render('Roles/Create', [
+            'permissions' => Permission::all(['id', 'name'])
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $this->authorize('create', Role::class);
+        
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:roles',
+            'permissions' => 'array',
+            'permissions.*' => 'exists:permissions,id'
+        ]);
+        
+        $role = Role::create(['name' => $validated['name']]);
+        
+        if (isset($validated['permissions'])) {
+            $role->givePermissionTo($validated['permissions']);
+        }
+        
+        return redirect()->route('roles.index')
+            ->with('success', 'Role created successfully.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Role $role)
+    {
+        $this->authorize('view', $role);
+        
+        return Inertia::render('Roles/Show', [
+            'role' => $role->load('permissions')
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Role $role)
+    {
+        $this->authorize('update', $role);
+        
+        return Inertia::render('Roles/Edit', [
+            'role' => $role->load('permissions'),
+            'permissions' => Permission::all(['id', 'name'])
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Role $role)
+    {
+        $this->authorize('update', $role);
+        
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:roles,name,' . $role->id,
+            'permissions' => 'array',
+            'permissions.*' => 'exists:permissions,id'
+        ]);
+        
+        $role->update(['name' => $validated['name']]);
+        
+        if (isset($validated['permissions'])) {
+            $role->syncPermissions($validated['permissions']);
+        }
+        
+        return redirect()->route('roles.index')
+            ->with('success', 'Role updated successfully.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Role $role)
+    {
+        $this->authorize('delete', $role);
+        
+        $role->delete();
+        
+        return redirect()->route('roles.index')
+            ->with('success', 'Role deleted successfully.');
+    }
+}
