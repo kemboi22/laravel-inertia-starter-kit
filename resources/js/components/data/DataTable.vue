@@ -1,12 +1,12 @@
 <script setup lang="ts" generic="T extends Record<string, any>">
-import { computed, ref, watch } from 'vue';
-import { router } from '@inertiajs/vue3';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-vue-next';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { debounce } from 'lodash-es';
+import { ArrowDown, ArrowUp, ArrowUpDown, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Search } from 'lucide-vue-next';
+import { computed, ref, watch } from 'vue';
 
 export interface Column {
     key: string;
@@ -63,14 +63,14 @@ watch(searchQuery, (newQuery) => {
 
 const handleSort = (column: Column) => {
     if (!column.sortable) return;
-    
+
     if (sortColumn.value === column.key) {
         sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
     } else {
         sortColumn.value = column.key;
         sortDirection.value = 'asc';
     }
-    
+
     emit('sort', column.key, sortDirection.value);
 };
 
@@ -84,9 +84,9 @@ const handlePerPageChange = (perPage: string) => {
 };
 
 const getSortIcon = (column: Column) => {
-    if (!column.sortable) return null;
-    if (sortColumn.value !== column.key) return '↕️';
-    return sortDirection.value === 'asc' ? '↑' : '↓';
+    if (!column.sortable) return ArrowUpDown;
+    if (sortColumn.value !== column.key) return ArrowUpDown;
+    return sortDirection.value === 'asc' ? ArrowUp : ArrowDown;
 };
 
 const renderCell = (column: Column, row: T) => {
@@ -96,30 +96,30 @@ const renderCell = (column: Column, row: T) => {
 
 const pageNumbers = computed(() => {
     if (!props.pagination) return [];
-    
+
     const { current_page, last_page } = props.pagination;
     const delta = 2;
     const range = [];
     const rangeWithDots = [];
-    
+
     for (let i = Math.max(2, current_page - delta); i <= Math.min(last_page - 1, current_page + delta); i++) {
         range.push(i);
     }
-    
+
     if (current_page - delta > 2) {
         rangeWithDots.push(1, '...');
     } else {
         rangeWithDots.push(1);
     }
-    
+
     rangeWithDots.push(...range);
-    
+
     if (current_page + delta < last_page - 1) {
         rangeWithDots.push('...', last_page);
     } else if (last_page > 1) {
         rangeWithDots.push(last_page);
     }
-    
+
     return rangeWithDots;
 });
 </script>
@@ -130,77 +130,71 @@ const pageNumbers = computed(() => {
             <div class="flex items-center justify-between">
                 <CardTitle v-if="title">{{ title }}</CardTitle>
                 <div v-if="searchable" class="relative max-w-sm">
-                    <Search class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                    <Input
-                        v-model="searchQuery"
-                        placeholder="Search..."
-                        class="pl-10"
-                    />
+                    <Search class="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+                    <Input v-model="searchQuery" placeholder="Search..." class="pl-10" />
                 </div>
             </div>
         </CardHeader>
-        
+
         <CardContent>
-            <div class="rounded-md border">
-                <div class="relative">
-                    <div v-if="loading" class="absolute inset-0 bg-background/50 backdrop-blur-sm z-10 flex items-center justify-center">
-                        <div class="flex items-center space-x-2">
-                            <div class="h-4 w-4 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
-                            <span class="text-sm text-muted-foreground">Loading...</span>
-                        </div>
+            <div class="relative">
+                <div v-if="loading" class="bg-background/50 absolute inset-0 z-10 flex items-center justify-center rounded-md backdrop-blur-sm">
+                    <div class="flex items-center space-x-2">
+                        <div class="border-primary h-4 w-4 animate-spin rounded-full border-2 border-t-transparent"></div>
+                        <span class="text-muted-foreground text-sm">Loading...</span>
                     </div>
-                    
-                    <table class="w-full">
-                        <thead>
-                            <tr class="border-b">
-                                <th
+                </div>
+
+                <div class="rounded-md border">
+                    <Table>
+                        <TableHeader>
+                            <TableRow>
+                                <TableHead
                                     v-for="column in columns"
                                     :key="column.key"
-                                    :class="[
-                                        'px-4 py-3 text-left text-sm font-medium text-muted-foreground',
-                                        column.sortable ? 'cursor-pointer hover:text-foreground' : ''
-                                    ]"
+                                    :class="[column.sortable ? 'hover:text-foreground cursor-pointer select-none' : '']"
                                     @click="handleSort(column)"
                                 >
-                                    <div class="flex items-center space-x-1">
+                                    <div class="flex items-center space-x-2">
                                         <span>{{ column.label }}</span>
-                                        <span v-if="column.sortable" class="text-xs opacity-50">
-                                            {{ getSortIcon(column) }}
-                                        </span>
+                                        <component
+                                            v-if="column.sortable"
+                                            :is="getSortIcon(column)"
+                                            class="h-4 w-4"
+                                            :class="{
+                                                'text-foreground': sortColumn === column.key,
+                                                'text-muted-foreground/50': sortColumn !== column.key,
+                                            }"
+                                        />
                                     </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-if="data.length === 0">
-                                <td :colspan="columns.length" class="px-4 py-8 text-center text-muted-foreground">
-                                    No data available
-                                </td>
-                            </tr>
-                            <tr
-                                v-for="(row, index) in data"
-                                :key="index"
-                                class="border-b hover:bg-muted/50"
-                            >
-                                <td
-                                    v-for="column in columns"
-                                    :key="column.key"
-                                    class="px-4 py-3 text-sm"
-                                >
+                                </TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            <TableRow v-if="data.length === 0">
+                                <TableCell :colspan="columns.length" class="h-24 text-center">
+                                    <div class="flex flex-col items-center justify-center space-y-2">
+                                        <div class="text-muted-foreground">No data available</div>
+                                        <div class="text-muted-foreground/70 text-sm">Try adjusting your search or filters</div>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow v-for="(row, index) in data" :key="index">
+                                <TableCell v-for="column in columns" :key="column.key">
                                     <slot :name="`cell.${column.key}`" :value="row[column.key]" :row="row">
                                         {{ renderCell(column, row) }}
                                     </slot>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
                 </div>
             </div>
-            
+
             <!-- Pagination -->
             <div v-if="pagination" class="flex items-center justify-between space-x-2 py-4">
                 <div class="flex items-center space-x-2">
-                    <span class="text-sm text-muted-foreground">
+                    <span class="text-muted-foreground text-sm">
                         Showing {{ pagination.from }} to {{ pagination.to }} of {{ pagination.total }} results
                     </span>
                     <Select :model-value="pagination.per_page.toString()" @update:model-value="handlePerPageChange">
@@ -213,16 +207,11 @@ const pageNumbers = computed(() => {
                             </SelectItem>
                         </SelectContent>
                     </Select>
-                    <span class="text-sm text-muted-foreground">per page</span>
+                    <span class="text-muted-foreground text-sm">per page</span>
                 </div>
-                
+
                 <div class="flex items-center space-x-1">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        :disabled="pagination.current_page === 1"
-                        @click="handlePageChange(1)"
-                    >
+                    <Button variant="outline" size="sm" :disabled="pagination.current_page === 1" @click="handlePageChange(1)">
                         <ChevronsLeft class="h-4 w-4" />
                     </Button>
                     <Button
@@ -233,16 +222,9 @@ const pageNumbers = computed(() => {
                     >
                         <ChevronLeft class="h-4 w-4" />
                     </Button>
-                    
+
                     <template v-for="page in pageNumbers" :key="page">
-                        <Button
-                            v-if="page === '...'"
-                            variant="ghost"
-                            size="sm"
-                            disabled
-                        >
-                            ...
-                        </Button>
+                        <Button v-if="page === '...'" variant="ghost" size="sm" disabled> ... </Button>
                         <Button
                             v-else
                             :variant="pagination.current_page === page ? 'default' : 'outline'"
@@ -252,7 +234,7 @@ const pageNumbers = computed(() => {
                             {{ page }}
                         </Button>
                     </template>
-                    
+
                     <Button
                         variant="outline"
                         size="sm"
@@ -274,4 +256,3 @@ const pageNumbers = computed(() => {
         </CardContent>
     </Card>
 </template>
-
