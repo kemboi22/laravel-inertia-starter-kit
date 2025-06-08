@@ -1,8 +1,10 @@
+import tailwindcss from '@tailwindcss/vite';
 import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
-import path from 'path';
-import tailwindcss from "@tailwindcss/vite";
 import { resolve } from 'node:path';
+import path from 'path';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
@@ -20,6 +22,32 @@ export default defineConfig({
                     includeAbsolute: false,
                 },
             },
+        }),
+        AutoImport({
+            imports: ['vue', '@vueuse/core'],
+            dirs: ['resources/js/**'],
+            viteOptimizeDeps: true,
+            dts: true,
+            eslintrc: {
+                enabled: true,
+            },
+            vueTemplate: true,
+            include: [
+                /\.vue$/,
+                /\.vue\?vue/, // .vue
+                /\.ts$/, // .ts
+                /\.js$/, // .js
+            ],
+            dirsScanOptions: {
+                types: true,
+            },
+        }),
+        Components({
+            dts: true,
+            dirs: ['resources/js/**'],
+            extensions: ['vue', 'ts'],
+            globs: ['resources/js/**/*.{ts,js,vue}'],
+            deep: true,
         }),
     ],
     resolve: {
