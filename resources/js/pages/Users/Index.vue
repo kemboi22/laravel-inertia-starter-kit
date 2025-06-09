@@ -1,16 +1,11 @@
 <script setup lang="ts">
-import DataTable, { type Column, type PaginationData } from '@/components/data/DataTable.vue';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import { router } from '@inertiajs/vue3';
-import { Edit, Eye, MoreHorizontal, Plus, Trash } from 'lucide-vue-next';
+import { Head, Link, router } from '@inertiajs/vue3';
 
-interface User {
-    id: number;
-    name: string;
-    email: string;
-    roles: Array<{ id: number; name: string }>;
-    created_at: string;
-}
+import DataTable, { type Column, type PaginationData } from '@/components/data/DataTable.vue';
+import { useDataTable } from '@/composables/useDataTable';
+import type { BreadcrumbItemType, Role, User } from '@/types/index.d';
+
+import { Edit, Eye, MoreHorizontal, Plus, Trash } from 'lucide-vue-next';
 
 interface Props {
     users: User[];
@@ -23,8 +18,6 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
-const loading = ref(false);
 
 const columns: Column[] = [
     {
@@ -43,6 +36,7 @@ const columns: Column[] = [
         key: 'roles',
         label: 'Roles',
         sortable: false,
+        render: (value: Role[]) => value.map((role) => role.name).join(', '),
     },
     {
         key: 'created_at',
@@ -57,44 +51,21 @@ const columns: Column[] = [
     },
 ];
 
-const handleSearch = (query: string) => {
-    loading.value = true;
-    router.get(
-        route('users.index'),
-        { search: query, sort_column: props.filters.sort_column, sort_direction: props.filters.sort_direction },
-        { preserveState: true, onFinish: () => (loading.value = false) },
-    );
-};
-
-const handleSort = (column: string, direction: 'asc' | 'desc') => {
-    loading.value = true;
-    router.get(
-        route('users.index'),
-        { search: props.filters.search, sort_column: column, sort_direction: direction },
-        { preserveState: true, onFinish: () => (loading.value = false) },
-    );
-};
-
-const handlePaginate = (page: number) => {
-    loading.value = true;
-    router.get(route('users.index'), { ...props.filters, page }, { preserveState: true, onFinish: () => (loading.value = false) });
-};
-
-const handlePerPageChange = (perPage: number) => {
-    loading.value = true;
-    router.get(route('users.index'), { ...props.filters, per_page: perPage }, { preserveState: true, onFinish: () => (loading.value = false) });
-};
+const { loading, handleSearch, handleSort, handlePaginate, handlePerPageChange } = useDataTable();
 
 const deleteUser = (user: User) => {
     if (confirm('Are you sure you want to delete this user?')) {
-        router.delete(route('users.destroy', user.id));
+        router.delete(route('users.destroy', user.id), {
+            preserveScroll: true,
+        });
     }
 };
 
-const breadcrumbs = [{ title: 'Dashboard', href: route('dashboard') }, { title: 'Users' }];
+const breadcrumbs: BreadcrumbItemType[] = [{ title: 'Dashboard', href: route('dashboard') }, { title: 'Users' }];
 </script>
 
 <template>
+    <Head title="Users" />
     <DefaultLayout title="Users" :breadcrumbs="breadcrumbs">
         <div class="space-y-4">
             <div class="flex items-center justify-between">
@@ -110,15 +81,16 @@ const breadcrumbs = [{ title: 'Dashboard', href: route('dashboard') }, { title: 
                 :columns="columns"
                 :pagination="pagination"
                 :loading="loading"
+                :filters="filters"
                 title="All Users"
-                @search="handleSearch"
-                @sort="handleSort"
-                @paginate="handlePaginate"
-                @per-page-change="handlePerPageChange"
+                @search="(query) => handleSearch(query, { ...props.filters }, route('users.index'))"
+                @sort="(column, direction) => handleSort(column, direction, { ...props.filters }, route('users.index'))"
+                @paginate="(page) => handlePaginate(page, { ...props.filters }, route('users.index'))"
+                @per-page-change="(perPage) => handlePerPageChange(perPage, { ...props.filters }, route('users.index'))"
             >
-                <template #cell.roles="{ value }">
+                <template #cell.roles="{ row }">
                     <div class="flex flex-wrap gap-1">
-                        <Badge v-for="role in value" :key="role.id" variant="secondary">
+                        <Badge v-for="role in row.roles" :key="role.id" variant="secondary" class="capitalize">
                             {{ role.name }}
                         </Badge>
                     </div>
@@ -127,20 +99,20 @@ const breadcrumbs = [{ title: 'Dashboard', href: route('dashboard') }, { title: 
                 <template #cell.actions="{ row }">
                     <DropdownMenu>
                         <DropdownMenuTrigger as-child>
-                            <Button variant="ghost" size="sm">
+                            <Button variant="ghost" size="icon" class="h-8 w-8">
                                 <MoreHorizontal class="h-4 w-4" />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuItem as="a" :href="route('users.show', row.id)">
+                            <DropdownMenuItem :as="Link" :href="route('users.show', row.id)">
                                 <Eye class="mr-2 h-4 w-4" />
                                 View
                             </DropdownMenuItem>
-                            <DropdownMenuItem as="a" :href="route('users.edit', row.id)">
+                            <DropdownMenuItem :as="Link" :href="route('users.edit', row.id)">
                                 <Edit class="mr-2 h-4 w-4" />
                                 Edit
                             </DropdownMenuItem>
-                            <DropdownMenuItem @click="deleteUser(row)" class="text-destructive">
+                            <DropdownMenuItem @click="deleteUser(row)" class="text-destructive focus:bg-destructive/10 focus:text-destructive">
                                 <Trash class="mr-2 h-4 w-4" />
                                 Delete
                             </DropdownMenuItem>
