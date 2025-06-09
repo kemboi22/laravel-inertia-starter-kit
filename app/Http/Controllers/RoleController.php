@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Role\StoreRoleRequest;
+use App\Http\Requests\Role\UpdateRoleRequest;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,7 +16,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        //$this->authorize('view', Role::class);
+        $this->authorize('viewAny', Role::class);
         [$roles, $pagination] = Role::query()->processDataTable($request);
 
         return Inertia::render('Roles/Index', [
@@ -39,15 +41,11 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRoleRequest $request)
     {
         $this->authorize('create', Role::class);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:roles',
-            'permissions' => 'array',
-            'permissions.*' => 'exists:permissions,id',
-        ]);
+        $validated = $request->validated();
 
         $role = Role::create(['name' => $validated['name']]);
 
@@ -87,21 +85,15 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(UpdateRoleRequest $request, Role $role)
     {
         $this->authorize('update', $role);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:roles,name,' . $role->id,
-            'permissions' => 'array',
-            'permissions.*' => 'exists:permissions,id',
-        ]);
+        $validated = $request->validated();
 
         $role->update(['name' => $validated['name']]);
 
-        if (isset($validated['permissions'])) {
-            $role->syncPermissions($validated['permissions']);
-        }
+        $role->syncPermissions($validated['permissions'] ?? []);
 
         return redirect()->route('roles.index')
             ->with('success', 'Role updated successfully.');

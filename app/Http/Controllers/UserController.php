@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
 
@@ -15,10 +18,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        //Gate::authorize('view', User::class);
+        Gate::authorize('viewAny', User::class);
 
         [$users, $meta] = User::with('roles')->processDataTable($request);
-
 
         return Inertia::render('Users/Index', [
             'users' => $users,
@@ -42,22 +44,16 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         $this->authorize('create', User::class);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-            'roles' => 'array',
-            'roles.*' => 'exists:roles,id',
-        ]);
+        $validated = $request->validated();
 
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'password' => bcrypt($validated['password']),
+            'password' => Hash::make($validated['password']),
         ]);
 
         if (isset($validated['roles'])) {
@@ -96,27 +92,19 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
         $this->authorize('update', $user);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8',
-            'roles' => 'array',
-            'roles.*' => 'exists:roles,id',
-        ]);
+        $validated = $request->validated();
 
         $user->update([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'password' => $validated['password'] ? bcrypt($validated['password']) : $user->password,
+            'password' => $validated['password'] ? Hash::make($validated['password']) : $user->password,
         ]);
 
-        if (isset($validated['roles'])) {
-            $user->syncRoles($validated['roles']);
-        }
+        $user->syncRoles($validated['roles'] ?? []);
 
         return redirect()->route('users.index')
             ->with('success', 'User updated successfully.');
