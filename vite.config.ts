@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue';
 import laravel from 'laravel-vite-plugin';
 import { resolve } from 'node:path';
 import path from 'path';
-import AutoImport from 'unplugin-auto-import/vite';
+import AutoImport from 'unplugin-auto-import';
 import Components from 'unplugin-vue-components/vite';
 import { defineConfig } from 'vite';
 
@@ -28,23 +28,23 @@ export default defineConfig({
             dirs: ['resources/js/**'],
             viteOptimizeDeps: true,
             dts: true,
-            eslintrc: {
-                enabled: true,
-            },
+            //     eslintrc: {
+            //         enabled: true,
+            //     },
             vueTemplate: true,
-            include: [
-                /\.vue$/,
-                /\.vue\?vue/, // .vue
-                /\.ts$/, // .ts
-                /\.js$/, // .js
-            ],
-            dirsScanOptions: {
-                types: true,
-            },
+            //     include: [
+            //         /\.vue$/,
+            //         /\.vue\?vue/, // .vue
+            //         /\.ts$/, // .ts
+            //         /\.js$/, // .js
+            //     ],
+            //     dirsScanOptions: {
+            //         types: true,
+            //     },
         }),
         Components({
             dts: true,
-            dirs: ['resources/js/**'],
+            dirs: ['resources/js/components/**', 'resources/js/layouts/**'],
             extensions: ['vue', 'ts'],
             globs: ['resources/js/**/*.{ts,js,vue}'],
             deep: true,
