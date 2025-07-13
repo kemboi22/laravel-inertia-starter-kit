@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Role\StoreRoleRequest;
 use App\Http\Requests\Role\UpdateRoleRequest;
 use App\Models\Role;
+use App\Traits\Exportable;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
 
 class RoleController extends Controller
 {
+    use Exportable;
     /**
      * Display a listing of the resource.
      */
@@ -24,6 +26,30 @@ class RoleController extends Controller
             'pagination' => $pagination,
             'filters' => $request->only(['search', 'sort_column', 'sort_direction']),
         ]);
+    }
+
+    /**
+     * Export roles data.
+     */
+    public function export(Request $request)
+    {
+        $this->authorize('viewAny', Role::class);
+        
+        $query = Role::query();
+        
+        // Apply search filter if provided
+        if ($request->has('search') && $request->search) {
+            $query->quickSearch($request->search, ['name']);
+        }
+        
+        $format = $request->get('format', 'csv');
+        $filename = 'roles_' . date('Y-m-d_H-i-s') . '.' . $format;
+        
+        if ($format === 'json') {
+            return $this->exportToJson($query, $filename);
+        }
+        
+        return $this->exportToCsv($query, ['id', 'name', 'created_at', 'updated_at'], $filename);
     }
 
     /**

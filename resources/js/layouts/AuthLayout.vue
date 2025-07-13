@@ -14,24 +14,25 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-    <div>
+    <div class="min-h-screen flex flex-col justify-center py-8 sm:py-12 px-4 sm:px-6 lg:px-8 bg-background">
         <Head :title="title" />
         
-        <div class="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gray-50">
-            <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="w-full max-w-md mx-auto">
+            <div class="flex flex-col items-center space-y-6">
                 <div class="flex justify-center">
-                    <AppLogo class="h-12 w-auto" />
+                    <AppLogo class="h-10 w-auto" />
                 </div>
-                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                    {{ title }}
-                </h2>
-                <p v-if="description" class="mt-2 text-center text-sm text-gray-600">
-                    {{ description }}
-                </p>
-            </div>
-
-            <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                
+                <div class="text-center space-y-2">
+                    <h1 class="text-2xl font-semibold tracking-tight text-foreground">
+                        {{ title }}
+                    </h1>
+                    <p v-if="description" class="text-sm text-muted-foreground">
+                        {{ description }}
+                    </p>
+                </div>
+                
+                <div class="w-full bg-card border rounded-lg p-6 shadow-sm">
                     <slot />
                 </div>
             </div>

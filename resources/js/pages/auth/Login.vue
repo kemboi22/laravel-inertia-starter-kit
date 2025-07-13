@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import InputError from '@/components/InputError.vue';
-import TextLink from '@/components/TextLink.vue';
-import { Button } from '@/components/ui/button';
+import AuthForm from '@/components/auth/AuthForm.vue';
+import FormField from '@/components/forms/FormField.vue';
+import TextLink from '@/components/common/TextLink.vue';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import { LoaderCircle } from 'lucide-vue-next';
 
 defineProps<{
     status?: string;
@@ -35,59 +33,60 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit" class="flex flex-col gap-6">
-            <div class="grid gap-6">
-                <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
-                    <Input
-                        id="email"
-                        type="email"
-                        required
-                        autofocus
-                        :tabindex="1"
-                        autocomplete="email"
-                        v-model="form.email"
-                        placeholder="email@example.com"
-                    />
-                    <InputError :message="form.errors.email" />
-                </div>
-
-                <div class="grid gap-2">
+        <AuthForm
+            submit-text="Log in"
+            :is-loading="form.processing"
+            :disabled="form.processing"
+            @submit="submit"
+        >
+            <template #fields>
+                <FormField
+                    id="email"
+                    label="Email address"
+                    type="email"
+                    required
+                    autofocus
+                    :tabindex="1"
+                    autocomplete="email"
+                    placeholder="email@example.com"
+                    v-model="form.email"
+                    :error="form.errors.email"
+                />
+                
+                <div class="space-y-2">
                     <div class="flex items-center justify-between">
-                        <Label for="password">Password</Label>
+                        <Label for="password" class="text-sm font-medium">Password</Label>
                         <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm" :tabindex="5">
                             Forgot password?
                         </TextLink>
                     </div>
-                    <Input
+                    <FormField
                         id="password"
+                        label=""
                         type="password"
                         required
                         :tabindex="2"
                         autocomplete="current-password"
-                        v-model="form.password"
                         placeholder="Password"
+                        v-model="form.password"
+                        :error="form.errors.password"
                     />
-                    <InputError :message="form.errors.password" />
                 </div>
 
-                <div class="flex items-center justify-between">
+                <div class="flex items-center">
                     <Label for="remember" class="flex items-center space-x-3">
                         <Checkbox id="remember" v-model="form.remember" :tabindex="3" />
-                        <span>Remember me</span>
+                        <span class="text-sm">Remember me</span>
                     </Label>
                 </div>
-
-                <Button type="submit" class="mt-4 w-full" :tabindex="4" :disabled="form.processing">
-                    <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                    Log in
-                </Button>
-            </div>
-
-            <div class="text-muted-foreground text-center text-sm">
-                Don't have an account?
-                <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
-            </div>
-        </form>
+            </template>
+            
+            <template #footer>
+                <div class="text-center text-sm text-muted-foreground">
+                    Don't have an account?
+                    <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
+                </div>
+            </template>
+        </AuthForm>
     </AuthBase>
 </template>
