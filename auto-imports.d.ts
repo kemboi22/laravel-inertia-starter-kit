@@ -108,6 +108,7 @@ declare global {
   const PopoverAnchor: typeof import('./resources/js/components/ui/popover/index')['PopoverAnchor']
   const PopoverContent: typeof import('./resources/js/components/ui/popover/index')['PopoverContent']
   const PopoverTrigger: typeof import('./resources/js/components/ui/popover/index')['PopoverTrigger']
+  const Progress: typeof import('./resources/js/components/ui/progress/index')['Progress']
   const RadioGroup: typeof import('./resources/js/components/ui/radio-group/index')['RadioGroup']
   const RadioGroupItem: typeof import('./resources/js/components/ui/radio-group/index')['RadioGroupItem']
   const SIDEBAR_COOKIE_MAX_AGE: typeof import('./resources/js/components/ui/sidebar/utils')['SIDEBAR_COOKIE_MAX_AGE']
@@ -188,7 +189,7 @@ declare global {
   const beautifyObjectName: typeof import('./resources/js/components/ui/auto-form/utils')['beautifyObjectName']
   const booleanishToBoolean: typeof import('./resources/js/components/ui/auto-form/utils')['booleanishToBoolean']
   const buttonVariants: typeof import('./resources/js/components/ui/button/index')['buttonVariants']
-  const cn: typeof import('./resources/js/lib/utils')['cn']
+  const cn: typeof import('./resources/js/utils/cn')['cn']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -215,6 +216,7 @@ declare global {
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
+  const fileUploadService: typeof import('./resources/js/services/fileUploadService')['default']
   const getBaseSchema: typeof import('./resources/js/components/ui/auto-form/utils')['getBaseSchema']
   const getBaseType: typeof import('./resources/js/components/ui/auto-form/utils')['getBaseType']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
@@ -225,6 +227,7 @@ declare global {
   const getInitials: typeof import('./resources/js/composables/useInitials')['getInitials']
   const getObjectFormSchema: typeof import('./resources/js/components/ui/auto-form/utils')['getObjectFormSchema']
   const h: typeof import('vue')['h']
+  const httpService: typeof import('./resources/js/services/httpService')['default']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const initializeTheme: typeof import('./resources/js/composables/useAppearance')['initializeTheme']
   const inject: typeof import('vue')['inject']
@@ -459,6 +462,7 @@ declare global {
   const useTitle: typeof import('@vueuse/core')['useTitle']
   const useToNumber: typeof import('@vueuse/core')['useToNumber']
   const useToString: typeof import('@vueuse/core')['useToString']
+  const useToast: typeof import('./resources/js/composables/useToast')['useToast']
   const useToggle: typeof import('@vueuse/core')['useToggle']
   const useTransition: typeof import('@vueuse/core')['useTransition']
   const useUrlSearchParams: typeof import('@vueuse/core')['useUrlSearchParams']
@@ -520,11 +524,11 @@ declare global {
   export type { SidebarProps, SidebarMenuButtonVariants } from './resources/js/components/ui/sidebar/index'
   import('./resources/js/components/ui/sidebar/index')
   // @ts-ignore
-  export type { Auth, NavItem, SharedData } from './resources/js/types/index.d'
-  import('./resources/js/types/index.d')
+  export type { UploadedFile, UploadResponse, UploadProgress } from './resources/js/services/fileUploadService'
+  import('./resources/js/services/fileUploadService')
   // @ts-ignore
-  export type { BreadcrumbItemType, User, Role, Permission, PaginationMeta, PaginatedResponse, PageProps } from './resources/js/types/index'
-  import('./resources/js/types/index')
+  export type { Toast } from './resources/js/composables/useToast'
+  import('./resources/js/composables/useToast')
 }
 
 // for vue template auto import
@@ -634,6 +638,7 @@ declare module 'vue' {
     readonly PopoverAnchor: UnwrapRef<typeof import('./resources/js/components/ui/popover/index')['PopoverAnchor']>
     readonly PopoverContent: UnwrapRef<typeof import('./resources/js/components/ui/popover/index')['PopoverContent']>
     readonly PopoverTrigger: UnwrapRef<typeof import('./resources/js/components/ui/popover/index')['PopoverTrigger']>
+    readonly Progress: UnwrapRef<typeof import('./resources/js/components/ui/progress/index')['Progress']>
     readonly RadioGroup: UnwrapRef<typeof import('./resources/js/components/ui/radio-group/index')['RadioGroup']>
     readonly RadioGroupItem: UnwrapRef<typeof import('./resources/js/components/ui/radio-group/index')['RadioGroupItem']>
     readonly SIDEBAR_COOKIE_MAX_AGE: UnwrapRef<typeof import('./resources/js/components/ui/sidebar/utils')['SIDEBAR_COOKIE_MAX_AGE']>
@@ -714,7 +719,7 @@ declare module 'vue' {
     readonly beautifyObjectName: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['beautifyObjectName']>
     readonly booleanishToBoolean: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['booleanishToBoolean']>
     readonly buttonVariants: UnwrapRef<typeof import('./resources/js/components/ui/button/index')['buttonVariants']>
-    readonly cn: UnwrapRef<typeof import('./resources/js/lib/utils')['cn']>
+    readonly cn: UnwrapRef<typeof import('./resources/js/utils/cn')['cn']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -741,6 +746,7 @@ declare module 'vue' {
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly fileUploadService: UnwrapRef<typeof import('./resources/js/services/fileUploadService')['default']>
     readonly getBaseSchema: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['getBaseSchema']>
     readonly getBaseType: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['getBaseType']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
@@ -751,6 +757,7 @@ declare module 'vue' {
     readonly getInitials: UnwrapRef<typeof import('./resources/js/composables/useInitials')['getInitials']>
     readonly getObjectFormSchema: UnwrapRef<typeof import('./resources/js/components/ui/auto-form/utils')['getObjectFormSchema']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
+    readonly httpService: UnwrapRef<typeof import('./resources/js/services/httpService')['default']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly initializeTheme: UnwrapRef<typeof import('./resources/js/composables/useAppearance')['initializeTheme']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
@@ -985,6 +992,7 @@ declare module 'vue' {
     readonly useTitle: UnwrapRef<typeof import('@vueuse/core')['useTitle']>
     readonly useToNumber: UnwrapRef<typeof import('@vueuse/core')['useToNumber']>
     readonly useToString: UnwrapRef<typeof import('@vueuse/core')['useToString']>
+    readonly useToast: UnwrapRef<typeof import('./resources/js/composables/useToast')['useToast']>
     readonly useToggle: UnwrapRef<typeof import('@vueuse/core')['useToggle']>
     readonly useTransition: UnwrapRef<typeof import('@vueuse/core')['useTransition']>
     readonly useUrlSearchParams: UnwrapRef<typeof import('@vueuse/core')['useUrlSearchParams']>

@@ -25,28 +25,24 @@ export default defineConfig({
         }),
         AutoImport({
             imports: ['vue', '@vueuse/core'],
-            dirs: ['resources/js/**'],
+            dirs: [
+                './resources/js/components/**',
+                './resources/js/services/**',
+                './resources/js/utils/**',
+                './resources/js/layouts/**',
+                './resources/js/stores/**',
+                './resources/js/composables/**',
+            ],
             viteOptimizeDeps: true,
             dts: true,
-            //     eslintrc: {
-            //         enabled: true,
-            //     },
             vueTemplate: true,
-            //     include: [
-            //         /\.vue$/,
-            //         /\.vue\?vue/, // .vue
-            //         /\.ts$/, // .ts
-            //         /\.js$/, // .js
-            //     ],
-            //     dirsScanOptions: {
-            //         types: true,
-            //     },
+            dirsScanOptions: {
+                types: true,
+            },
         }),
         Components({
             dts: true,
             dirs: ['resources/js/components/**', 'resources/js/layouts/**'],
-            extensions: ['vue', 'ts'],
-            globs: ['resources/js/**/*.{ts,js,vue}'],
             deep: true,
         }),
     ],
